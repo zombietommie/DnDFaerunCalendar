@@ -1,4 +1,4 @@
-export const calendarData = {
+export const FAERUN_CALENDAR = {
   year: 1492,
   months: [
     { name: "Hammer", days: 30, postition: 1 },
