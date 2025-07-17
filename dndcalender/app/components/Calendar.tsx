@@ -58,7 +58,6 @@ export default function Calendar() {
 
   return (
     <div className="flex flex-col items-center">
-      <div></div>
       <p>{currentDate.year}</p>
       <p>{currentDate.month}</p>
       <p>{currentDate.day}</p>
