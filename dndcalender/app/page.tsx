@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center">
       <main>
-        <h1>Calendar of Harptos</h1>
+        <p className="text-5xl font-bold p-10">Calendar of Harptos</p>
         {<Calendar />}
       </main>
       <footer></footer>
