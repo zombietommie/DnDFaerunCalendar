@@ -39,6 +39,36 @@ export default function Calendar() {
     }
   };
 
+  // Logic for going backwards a day
+  const handlePrevDay = () => {
+    const currentMonth = FAERUN_CALENDAR.months.find(
+      (month) => month.name === currentDate.month
+    );
+    if (!currentMonth) {
+      console.error("Current month not found");
+      return;
+    }
+    let prevDay = currentDate.day - 1;
+
+    if (prevDay < 1) {
+      const currentMonthIndex = FAERUN_CALENDAR.months.findIndex(
+        (month) => month.name === currentDate.month
+      );
+      const prevMonthIndex =
+        (currentMonthIndex - 1 + FAERUN_CALENDAR.months.length) %
+        FAERUN_CALENDAR.months.length;
+      const prevMonth = FAERUN_CALENDAR.months[prevMonthIndex];
+      prevDay = prevMonth.days; // Set to the last day of the previous month
+      setCurrentDate({
+        year: FAERUN_CALENDAR.year,
+        month: prevMonth.name,
+        day: prevDay,
+      });
+    } else {
+      setCurrentDate((prev) => ({ ...prev, day: prevDay }));
+    }
+  };
+
   // On component mount, try to load the date from localStorage
   useEffect(() => {
     const savedDate = localStorage.getItem("faerunDate");
@@ -61,12 +91,20 @@ export default function Calendar() {
       <p>{currentDate.year}</p>
       <p>{currentDate.month}</p>
       <p>{currentDate.day}</p>
-      <button
-        onClick={handleNextDay}
-        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
-      >
-        Next Day
-      </button>
+      <div className="div flex pt-4">
+        <button
+          onClick={handlePrevDay}
+          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 mr-2"
+        >
+          Previous Day
+        </button>
+        <button
+          onClick={handleNextDay}
+          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 ml-2"
+        >
+          Next Day
+        </button>
+      </div>
     </div>
   );
 }
