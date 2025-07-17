@@ -39,6 +39,18 @@ export default function Calendar() {
     }
   };
 
+  // On component mount, try to load the date from localStorage
+  useEffect(() => {
+    const savedDate = localStorage.getItem("faerunDate");
+    if (savedDate) {
+      try {
+        setCurrentDate(JSON.parse(savedDate));
+      } catch (e) {
+        console.error("Failed to parse date from localStorage...", e);
+      }
+    }
+  }, []); // This runs only once when the component mounts
+
   //Use useEffect to load/save the date from localStorage
   useEffect(() => {
     localStorage.setItem("faerunDate", JSON.stringify(currentDate));
@@ -46,6 +58,7 @@ export default function Calendar() {
 
   return (
     <div className="flex flex-col items-center">
+      <div></div>
       <p>{currentDate.year}</p>
       <p>{currentDate.month}</p>
       <p>{currentDate.day}</p>
